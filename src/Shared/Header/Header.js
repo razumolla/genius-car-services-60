@@ -1,12 +1,26 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Container, Nav, Navbar } from 'react-bootstrap';
+import logo from '../../images/logo.png'
 
 const Header = () => {
     return (
-        <header>
-            <Link to="/home"  > Home</Link>
-            <Link to="/about"  > About</Link>
-        </header>
+        <>
+
+            <Navbar bg="primary" variant="dark">
+                <Container>
+                    <Navbar.Brand href="#home">
+                        <img height={30} src={logo} alt="" />
+                    </Navbar.Brand>
+                    <Nav className="me-auto">
+                        <Nav.Link href="#home">Home</Nav.Link>
+                        <Nav.Link href="#features">Features</Nav.Link>
+                        <Nav.Link href="#pricing">Pricing</Nav.Link>
+                    </Nav>
+                </Container>
+            </Navbar>
+
+
+        </>
     );
 };
 
