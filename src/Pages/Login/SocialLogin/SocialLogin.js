@@ -2,7 +2,26 @@ import React from 'react';
 import google from '../../../images/social/google.png'
 import facebook from '../../../images/social/facebook.png'
 import github from '../../../images/social/github.png'
+import { useSignInWithGithub, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
+import { useNavigate } from 'react-router-dom';
+
+
 const SocialLogin = () => {
+    const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
+    const [signInWithGithub, user1, loading1, error1] = useSignInWithGithub(auth);
+    const navigate = useNavigate();
+
+    let errorElement;
+    if (error || error1) {
+        errorElement = <p className='text-danger'>Error: {error?.message} {error1?.message} </p>
+
+    }
+    
+    if (user || user1) {
+        navigate('/home')
+    }
+
     return (
         <div>
             <div className='d-flex align-items-center'>
@@ -10,8 +29,11 @@ const SocialLogin = () => {
                 <p className='mt-3 px-2'>OR</p>
                 <div style={{ height: '1px' }} className='bg-primary w-50'></div>
             </div>
+            {errorElement}
             <div className=''>
-                <button className='btn btn-info w-75 mx-auto d-block my-2'>
+                <button
+                    onClick={() => signInWithGoogle()}
+                    className='btn btn-info w-75 mx-auto d-block my-2'>
                     <img height={25} src={google} alt="" />
                     <span className='px-2'>Google Sign In </span>
                 </button>
@@ -23,7 +45,9 @@ const SocialLogin = () => {
                 </button>
             </div>
             <div className=''>
-                <button className='btn btn-info w-75 mx-auto d-block'>
+                <button
+                    onClick={() => signInWithGithub()}
+                    className='btn btn-info w-75 mx-auto d-block'>
                     <img height={25} src={github} alt="" />
                     <span className='px-2'>Github Sign In </span>
                 </button>
