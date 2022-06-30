@@ -19,6 +19,7 @@ const AddService = () => {
                 console.log(result);
             })
     };
+
     return (
         <div className='w-50 mx-auto'>
             <h2>Please add a service</h2>
